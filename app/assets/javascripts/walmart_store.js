@@ -4,7 +4,8 @@ window.WalmartStore = {
   Views: {},
   Routers: {},
   initialize: function() {
-    alert('Hello from Backbone!');
+    new WalmartStore.Routers.Products;
+    Backbone.history.start();
   }
 };
 

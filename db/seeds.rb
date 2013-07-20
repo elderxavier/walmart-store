@@ -1,7 +1,7 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+# encoding: utf-8
+Product.create!(:name => 'Galaxy S4', :description => 'A mais nova geração de celulares Android da Samsung', :category => 'Telefonia', :image_url => 'http://www.walmart.com.br/arquivos/ids/4586608', :price => 2299.0)
+Product.create!(:name => 'Apple iPhone 4', :description => 'Apple iPhone 4 8GB Branco Desbloqueado', :category => 'Telefonia', :image_url => 'http://www.walmart.com.br/arquivos/ids/4185901', :price => 1399.0)
+Product.create!(:name => 'Last of Us', :description => 'O melhor jogo já feito para PS3', :category => 'Jogos de Videogame', :image_url => 'http://www.walmart.com.br/arquivos/ids/4674447', :price => 149.0)
+Product.create!(:name => 'Pantene 2 em 1', :description => 'Shampoo diário 2 em 1', :category =>  'Jogos de Videogame', :image_url => 'http://www.walmart.com.br/arquivos/ids/4389725', :price => 27.90)
+Product.create!(:name => 'Shampoo Head & Shoulders', :description => 'Shampoo anti-caspa', :category => 'Beleza e Saúde', :image_url => 'http://www.walmart.com.br/arquivos/ids/3896708', :price => 11.0)
+Product.create!(:name => 'Caloi 21', :description => 'Bicicleta Caloi de 21 marchas', :category => 'Esporte e Lazer', :image_url => 'http://www.walmart.com.br/arquivos/ids/2988601', :price => 899.0)
