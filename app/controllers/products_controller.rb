@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    respond_with Product.all
+    respond_with Product.order('name')
   end
 
   # GET /products/1
