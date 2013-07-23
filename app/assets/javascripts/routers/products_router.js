@@ -15,7 +15,9 @@ WalmartStore.Routers.Products = Backbone.Router.extend({
     return $('#container').html(view.render().el);
   },
   new: function() {
-    var view = new WalmartStore.Views.ProductsNew({});
+    var view = new WalmartStore.Views.ProductsNew({
+      collection: this.collection
+    });
     return $('#container').html(view.render().el);
   },
   show: function(id) {
