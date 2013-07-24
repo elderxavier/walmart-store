@@ -5,7 +5,7 @@ WalmartStore::Application.routes.draw do
 
   root to: "main#index"
 
-  scope "api", :format => true, :constraints => { :format => 'json' } do
+  scope "api" do
     resources :users, except: [:new, :edit]
     resources :products, except: [:new, :edit] do
       collection do

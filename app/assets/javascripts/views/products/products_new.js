@@ -11,7 +11,14 @@ WalmartStore.Views.ProductsNew = Backbone.View.extend({
   },
   
   navigateBack: function() {
-    return Backbone.history.navigate('/', {trigger: true, replace: false});
+    // update comparator function
+    this.collection.comparator = function(model) {
+        return model.get('name');
+    }
+
+    // call the sort method
+    this.collection.sort();
+    return Backbone.history.navigate('', {trigger: true, replace: false});
   },
   
   events: {
@@ -27,7 +34,6 @@ WalmartStore.Views.ProductsNew = Backbone.View.extend({
       image_url: $('#new_product_image_url').val(),
       price: $('#new_product_price').val()
     });
-    this.collection.sync();
     return product;
   }
 
