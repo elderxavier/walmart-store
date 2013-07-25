@@ -2,12 +2,17 @@ WalmartStore.Views.ProductsNew = Backbone.View.extend({
 
   template: JST['products/new'],
   render: function() {
+    this.current_model = this.collection.get(this.id);
+    if (typeof current_model === "undefined") {
+      
+    }
     $(this.el).html(this.template({}));
     return this;
   },
   
   initialize: function() {
-    return this.collection.on('add', this.navigateBack, this);
+    this.collection.on('add', this.navigateBack, this);
+    this.collection.on('reset', this.render, this);
   },
   
   navigateBack: function() {
