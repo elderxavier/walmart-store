@@ -1,5 +1,8 @@
-class Category < ActiveRecord::Base
-  attr_accessible :name, :parent_category, :parent_category_id
+class Category
+  #attr_accessible :name, :category, :category_id
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  field :name, type: String
   has_many :products
-  belongs_to :parent_category, :class_name => Category
+  belongs_to :category, :dependent => :restrict
 end
