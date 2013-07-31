@@ -1,10 +1,17 @@
 class ProductsController < ApplicationController
-  respond_to :json
+  respond_to :json, :except => :export
+  respond_to :xml, :only => :export
+
+  before_filter :authenticate, :except => :export
   
   # GET /products
   # GET /products.json
   def index
     respond_with Product.order('name')
+  end
+
+  def export
+    render :xml => Product.order('updated_at').to_xml(:except => [:id, :category_id], :methods => :category_name)
   end
 
   # GET /products/1
@@ -45,4 +52,14 @@ class ProductsController < ApplicationController
 
     head :no_content
   end
+  
+  protected
+
+  def authenticate
+    if authenticate_with_http_basic { |u, p| u == 'dummy' && p == 'drwho'}
+    else
+      request_http_basic_authentication
+    end
+  end
+
 end

@@ -34,7 +34,6 @@ GEM
       ejs
       jquery-rails
       rails (>= 3.1)
-    bcrypt-ruby (3.1.1)
     better_errors (0.9.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -48,11 +47,6 @@ GEM
     coffee-script-source (1.6.3)
     dalli (2.6.4)
     debug_inspector (0.0.2)
-    devise (3.0.0)
-      bcrypt-ruby (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
-      warden (~> 1.2.3)
     diff-lcs (1.2.4)
     eco (1.0.0)
       coffee-script
@@ -85,7 +79,6 @@ GEM
     mysql2 (0.3.13)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
-    orm_adapter (0.4.0)
     polyglot (0.3.3)
     pr_geohash (1.0.0)
     rack (1.4.5)
@@ -151,8 +144,6 @@ GEM
     uglifier (2.1.2)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    warden (1.2.3)
-      rack (>= 1.0)
 
 PLATFORMS
   ruby
@@ -162,7 +153,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   dalli
-  devise
   factory_girl_rails
   hirb
   jquery-rails

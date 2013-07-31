@@ -23,7 +23,6 @@ gem 'jquery-rails'
 gem 'backbone-on-rails'
 gem 'sunspot_rails'
 gem 'dalli'
-gem 'devise'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
