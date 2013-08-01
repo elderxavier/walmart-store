@@ -1,8 +1,7 @@
 class ProductsController < ApplicationController
-  respond_to :json, :except => :export
-  respond_to :xml, :only => :export
+  respond_to :json
 
-  before_filter :authenticate, :except => :export
+  before_filter :authenticate
   
   # GET /products
   # GET /products.json
@@ -62,14 +61,6 @@ class ProductsController < ApplicationController
 
     head :no_content
   end
-  
-  protected
 
-  def authenticate
-    if authenticate_with_http_basic { |u, p| u == 'dummy' && p == 'drwho'}
-    else
-      request_http_basic_authentication
-    end
-  end
 
 end
