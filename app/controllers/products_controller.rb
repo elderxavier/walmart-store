@@ -7,17 +7,27 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    respond_with Product.order('name')
+    @products = Product.all_cached_asc_name
+    respond_with @products
+    #atribui tanto etag quanto last-modified
+    fresh_when :etag => @products, :public => true
   end
 
   def export
-    render :xml => Product.order('updated_at').to_xml(:except => [:id, :category_id], :methods => :category_name)
+    @products = Product.all_cached_asc_updated_at.to_xml(:except => [:id, :category_id], :methods => :category_name)
+    render :xml => @products
+    #atribui tanto etag quanto last-modified
+    fresh_when :etag => @products, :public => true
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
     respond_with Product.find(params[:id])
+    #cache no browser maior para o show
+    expires_in 1.minute
+    #atribui tanto etag quanto last-modified
+    fresh_when @product, :public => true
   end
 
   # POST /products

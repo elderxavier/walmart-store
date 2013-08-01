@@ -1,4 +1,5 @@
 WalmartStore::Application.configure do
+  config.cache_store = :dalli_store, 'localhost', {:compress => true, :expires_in => 1.day}
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on

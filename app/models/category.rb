@@ -5,4 +5,11 @@ class Category
   field :name, :type => String
   has_many :products
   belongs_to :category, :dependent => :restrict
+  
+  after_save :nested_touch
+  
+  def nested_touch
+    products.each(&:touch)
+  end
+
 end

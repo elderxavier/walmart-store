@@ -1,10 +1,10 @@
 <h1>Produtos</h1>
-<a href='#produtos/novo'>xpto</a>
+<a href='#produtos/novo'>Adicionar novo</a>
 <ul>
 <% for(var i=0; i<products.length; i++) { %>
   <li>
     <%= products.models[i].get('name') %>&nbsp;
-    <a href="#" data-id=<%=i%> id="product_<%=products.models[i].get('id')%>" class="destroy icon-minus-sign"></a>
+    <a href="#" data-id=<%=i%> id="product_<%=products.models[i].get('_id')%>" class="destroy icon-minus-sign"></a>
   </li>
 <% } %>
 </ul>
