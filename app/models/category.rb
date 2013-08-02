@@ -14,10 +14,9 @@ class Category
   def nested_touch
     products.each(&:touch)
   end
-
   
   def self.full_tree_as_hash
-    {:categories => build_tree_map(Category.root.asc_name) }
+    build_tree_map(Category.root.asc_name)
   end
   
   #algoritmo recursivo montando arvore

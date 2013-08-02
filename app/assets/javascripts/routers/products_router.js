@@ -6,11 +6,11 @@ WalmartStore.Routers.Products = Backbone.Router.extend({
   },
   initialize: function() {
     this.collection = new WalmartStore.Collections.Products();
-    return this.collection.fetch({reset: true});
+    this.collection.fetch({reset: true});
   },
   index: function() {
     var view = new WalmartStore.Views.ProductsIndex({
-      collection: this.collection
+      collection: this.collection,
     });
     return $('#container').html(view.render().el);
   },

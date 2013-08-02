@@ -7,6 +7,12 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
+    @categories = Category.all.entries
+    respond_with @categories.to_json
+    fresh_when :etag => @categories, :public => true
+  end
+
+  def tree
     @categories = Category.full_tree_as_hash
     respond_with @categories.to_json
     fresh_when :etag => @categories, :public => true

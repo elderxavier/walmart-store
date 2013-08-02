@@ -4,7 +4,11 @@ WalmartStore::Application.routes.draw do
   root to: "main#index"
 
   scope "api" do
-    resources :categories, except: [:new, :edit]
+    resources :categories, except: [:new, :edit] do
+      collection do
+        get 'tree'
+      end
+    end
     resources :products, except: [:new, :edit] do
       collection do
         get 'export'
