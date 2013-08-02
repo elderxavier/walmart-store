@@ -1,4 +1,4 @@
-WalmartStore.Views.ProductsNew = Backbone.View.extend({
+WalmartStore.Views.ProductsNew = WalmartStore.Views.BaseView.extend({
 
   template: JST['products/new'],
 
@@ -53,16 +53,22 @@ WalmartStore.Views.ProductsNew = Backbone.View.extend({
   
   createProduct: function(event) {
     event.preventDefault();
-    this.currentModel = this.collection.create(this.buildProduct());
-    this.currentModel.on('sync', this.navigateBack(), this);
+    var parent = this;
+    this.currentModel = this.collection.create(this.buildProduct(),{
+      success: function(){ parent.navigateBack() }, 
+      error: function(model, error){ parent.handleServerErrors(model, error) }
+      });
   },
   
   editProduct: function(event) {
     event.preventDefault();
+    var parent = this;
     this.currentModel = new WalmartStore.Models.Product($.extend({_id: this.id}, this.buildProduct()));
     new WalmartStore.Collections.Products([this.currentModel]);
-    this.currentModel.save();
-    this.currentModel.on('sync', this.navigateBack(), this);
+    this.currentModel.save({},{
+      success: function(){ parent.navigateBack() }, 
+      error: function(model, error){ parent.handleServerErrors(model, error) }
+      });
   },
   
   buildProduct: function() {

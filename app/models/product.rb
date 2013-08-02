@@ -7,6 +7,8 @@ class Product
    field :description, :type => String
    field :price, :type => BigDecimal
    field :custom_attributes, :type => Hash
+   
+   validates_presence_of :name
 
    #campos passiveis de indexacao
    SORTING_FIELDS = ['name', 'updated_at']
