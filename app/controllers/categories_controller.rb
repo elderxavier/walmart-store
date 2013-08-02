@@ -42,7 +42,7 @@ class CategoriesController < ApplicationController
   def update
     @category = Category.find(params[:id])
 
-    if @category.update(params[:category])
+    if @category.update_attributes(params[:category])
       head :no_content
     else
       respond_with @category.errors, status: :unprocessable_entity

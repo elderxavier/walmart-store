@@ -17,20 +17,12 @@ WalmartStore.Views.ProductsNew = Backbone.View.extend({
   },
   
   initialize: function() {
-    this.collection.on('add', this.navigateBack, this);
     this.categories = new WalmartStore.Collections.Categories();
     this.categories.fetch({async: false});
   },
   
   navigateBack: function() {
-    // update comparator function
-    this.collection.comparator = function(model) {
-        return model.get('name');
-    }
-
-    // call the sort method
-    this.collection.sort();
-    return Backbone.history.navigate('', {trigger: true});
+    (new WalmartStore.Routers.Products).navigate('', {trigger: true});
   },
   
   new_attribute: function(event) {
@@ -61,16 +53,16 @@ WalmartStore.Views.ProductsNew = Backbone.View.extend({
   
   createProduct: function(event) {
     event.preventDefault();
-    product = this.collection.create(this.buildProduct());
-    return product;
+    this.currentModel = this.collection.create(this.buildProduct());
+    this.currentModel.on('sync', this.navigateBack(), this);
   },
   
   editProduct: function(event) {
     event.preventDefault();
-    this.currentModel = new WalmartStore.Models.Product({_id: this.id}.concat(this.buildProduct()));
+    this.currentModel = new WalmartStore.Models.Product($.extend({_id: this.id}, this.buildProduct()));
     new WalmartStore.Collections.Products([this.currentModel]);
-    this.currentModel.sync();
-    return this.currentModel;
+    this.currentModel.save();
+    this.currentModel.on('sync', this.navigateBack(), this);
   },
   
   buildProduct: function() {

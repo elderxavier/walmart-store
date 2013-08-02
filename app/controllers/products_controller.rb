@@ -46,7 +46,7 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find(params[:id])
 
-    if @product.update(params[:product])
+    if @product.update_attributes(params[:product])
       head :no_content
     else
       render json: @product.errors, status: :unprocessable_entity
