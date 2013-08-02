@@ -3,11 +3,16 @@ WalmartStore.Views.ProductsNew = Backbone.View.extend({
   template: JST['products/new'],
 
   render: function() {
-    this.current_model = this.collection.get(this.id);
-    if (typeof current_model === "undefined") {
-      
+    if (typeof this.id != "undefined") {
+      this.currentModel = new WalmartStore.Models.Product({_id: this.id});
+      new WalmartStore.Collections.Products([this.currentModel]);
+      this.currentModel.fetch({async:false});
+      var formName = 'edit_product';
+    } else {
+      this.currentModel = new WalmartStore.Models.Product();
+      var formName = 'new_product';
     }
-    $(this.el).html(this.template({categories: this.categories}));
+    $(this.el).html(this.template({categories: this.categories, currentModel: this.currentModel, formName: formName}));
     return this;
   },
   
@@ -29,7 +34,7 @@ WalmartStore.Views.ProductsNew = Backbone.View.extend({
   },
   
   new_attribute: function(event) {
-    $('#new_attribute_btn').before(JST['products/attribute_entry']());
+    $('#new_attribute_btn').before(JST['products/attribute_entry']({key: '', value:''}));
   },
   
   destroy: function(event) {
@@ -39,6 +44,7 @@ WalmartStore.Views.ProductsNew = Backbone.View.extend({
 
   events: {
     'submit #new_product': 'createProduct',
+    'submit #edit_product': 'editProduct',
     'click #new_attribute_btn': 'new_attribute',
     'click .destroy': 'destroy'
   },
@@ -55,14 +61,26 @@ WalmartStore.Views.ProductsNew = Backbone.View.extend({
   
   createProduct: function(event) {
     event.preventDefault();
-    product = this.collection.create({
+    product = this.collection.create(this.buildProduct());
+    return product;
+  },
+  
+  editProduct: function(event) {
+    event.preventDefault();
+    this.currentModel = new WalmartStore.Models.Product({_id: this.id}.concat(this.buildProduct()));
+    new WalmartStore.Collections.Products([this.currentModel]);
+    this.currentModel.sync();
+    return this.currentModel;
+  },
+  
+  buildProduct: function() {
+    return {
       name: $('#new_product_name').val(),
       description: $('#new_product_description').val(),
       category_id: $('#new_product_category').val(),
       price: $('#new_product_price').val(),
       custom_attributes: this.getAttributes()
-    });
-    return product;
+    }
   }
 
 });

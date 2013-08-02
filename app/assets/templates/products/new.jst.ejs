@@ -1,21 +1,26 @@
-<h1>Novo produto</h1>
-<form id="new_product">
-  <label for="new_product_name">Nome</label>
-  <input type="text" name="name" id="new_product_name"><br>
+<h1><%= (formName == 'new_product') ? 'Novo' : 'Atualizar' %> produto</h1>
+<a href="">Voltar</a><br><br>
+<form id="<%= formName %>">
+  <label for="new_product_name" >Nome</label>
+  <input type="text" name="name" id="new_product_name" value="<%= currentModel.get('name')%>"><br>
   <label for="new_product_description">Descrição</label>
-  <textarea name="description" id="new_product_description"></textarea><br>
+  <textarea name="description" id="new_product_description"><%= currentModel.get('description')%></textarea><br>
   <label for="new_product_category">Categoria</label>
   <select name="category" id="new_product_category">
        <% categories.each(function(category) { %>
-           <option value="<%= category.get('_id') %>"><%= category.get('name') %></option>
+           <option value="<%= category.id %>" <%= (category.id == currentModel.get('category_id')) ? 'selected' : '' %> ><%= category.get('name') %></option>
        <% }); %>
    </select><br>
   <label for="new_product_price">Preço</label>
-  <input type="text" name="price" id="new_product_price"><br>
+  <input type="text" name="price" id="new_product_price" value="<%= currentModel.get('price')%>"><br>
 
   <fieldset id='new_attribute_fieldset'>
     <legend>Atributos dinâmicos</legend>
+    <% if (currentModel.get('custom_attributes') != null) { %>
+      <% $.each(currentModel.get('custom_attributes'), function(key, value) { %>
+        <%= JST['products/attribute_entry']({key: key, value: value}) %>
+      <% })} %>
     <input type='button' id='new_attribute_btn' value='Novo atributo' style='margin-bottom:5px' class='btn'><br id='new_attribute_break'>
   </fieldset>
-  <input type="submit" value="Adicionar">
+  <input type="submit" value="OK">
 </form>
