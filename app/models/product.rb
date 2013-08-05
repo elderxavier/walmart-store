@@ -37,6 +37,6 @@ class Product
    protected
    #metodo protegido de busca cacheada
    def self.all_cached_asc(key)
-     Rails.cache.fetch("product_catalogue_#{key}") {Product.asc(key).entries}
+     Rails.cache.fetch("product_catalogue_#{key}") {Product.asc(key).includes(:category).entries}
    end
 end

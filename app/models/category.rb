@@ -9,6 +9,7 @@ class Category
   scope :root, where(:parent_category => nil)
   scope :asc_name, asc(:name)
   
+  #garante que o cache de produtos sera limpo apos atualizacao das categorias
   after_save :nested_touch
   
   def nested_touch
