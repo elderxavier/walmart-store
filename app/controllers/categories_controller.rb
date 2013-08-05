@@ -1,8 +1,7 @@
 class CategoriesController < ApplicationController
-  respond_to :json, :except => :export
-  respond_to :xml, :only => :export
+  respond_to :json
 
-  before_filter :authenticate, :except => :export
+  before_filter :authenticate
   
   # GET /categories
   # GET /categories.json

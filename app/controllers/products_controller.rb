@@ -1,7 +1,8 @@
 class ProductsController < ApplicationController
-  respond_to :json
+  respond_to :json, :except => :export
+  respond_to :xml, :only => :export
 
-  before_filter :authenticate
+  before_filter :authenticate, :except => :export
   
   # GET /products
   # GET /products.json
@@ -13,7 +14,7 @@ class ProductsController < ApplicationController
   end
 
   def export
-    @products = Product.all_cached_asc_updated_at.to_xml(:except => [:id, :category_id], :methods => :category_name)
+    @products = Product.all_cached_asc_updated_at.to_xml(:except => [:_id, :category_id, :custom_attributes], :methods => :category_name)
     render :xml => @products
     #atribui tanto etag quanto last-modified
     fresh_when :etag => @products, :public => true
